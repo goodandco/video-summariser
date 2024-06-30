@@ -30,8 +30,6 @@ languages = ['en']
 
 provider = 'chatgpt'
 
-
-
 def get_transcript(video_id):
     try:
         print("Getting transcript for", video_id)
@@ -44,17 +42,14 @@ def get_transcript(video_id):
         print("An error occurred:", e)
         return None
 
-
 def extract_video_id(url: str) -> str:
     data = re.findall(r"(?:v=|\/)([0-9A-Za-z_-]{11}).*", url)
     if data:
         return data[0]
     return ""
 
-
 def get_summary_by_transcript(transcript: str, provider: str) -> str:
     return get_summary_by_transcript_chatgpt(transcript) if provider == 'chatgpt' else get_summary_by_transcript_gemini(transcript)
-
 
 def get_summary_by_transcript_chatgpt(transcript: str) -> str:
     response = completion = client.chat.completions.create(
@@ -70,10 +65,8 @@ def get_summary_by_transcript_chatgpt(transcript: str) -> str:
 
     return response.choices[0].text.strip()
 
-
 def get_summary_by_transcript_gemini(transcript: str) -> str:
     return ""
-
 
 def run(url, provider):
     video_id = extract_video_id(url)
